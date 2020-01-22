@@ -1,0 +1,16 @@
+# Virtual environment
+.venv/
+
+# Python file caches
+__pycache__/
+**/*.pyc
+
+# Module distributions
+dist/
+
+# Editor support files
+# Visual Studio Code
+.vscode/
+# PyCharm
+.idea/
+
