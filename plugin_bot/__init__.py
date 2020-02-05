@@ -5,13 +5,15 @@ import logging
 
 import discord
 
+from plugin_bot.plugins import BasePlugin
+
 
 class PluginBot(discord.Client):
     """Represents a Discord client that is easily adaptable through plugins."""
-    def __init__(self, plugins):
+    def __init__(self, plugin_list):
         """Create a bot with the plugins passed."""
         super(PluginBot, self).__init__()
-        self.plugins = plugins
+        self.plugins = plugin_list
         self.logger = logging.getLogger(self.__class__.__name__)
 
     def dispatch(self, event, *args, **kwargs):
@@ -25,12 +27,3 @@ class PluginBot(discord.Client):
                                   plugin.__name__)
                 coro = functools.partial(getattr(plugin, method), self)
                 self._schedule_event(coro, method, *args, **kwargs)
-
-
-class BasePlugin:
-    """A convenience class to inherit from when making plugins."""
-
-    def __init_subclass__(cls, **kwargs):
-        """Automatically create the unique logger object for the subclass.
-        """
-        cls.logger = logging.getLogger(f'PluginBot.{cls.__name__}')
