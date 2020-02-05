@@ -25,3 +25,12 @@ class PluginBot(discord.Client):
                                   plugin.__name__)
                 coro = functools.partial(getattr(plugin, method), self)
                 self._schedule_event(coro, method, *args, **kwargs)
+
+
+class BasePlugin:
+    """A convenience class to inherit from when making plugins."""
+
+    def __init_subclass__(cls, **kwargs):
+        """Automatically create the unique logger object for the subclass.
+        """
+        cls.logger = logging.getLogger(f'PluginBot.{cls.__name__}')
