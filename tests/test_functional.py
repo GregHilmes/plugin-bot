@@ -58,5 +58,18 @@ class TestCanCreateBot(unittest.IsolatedAsyncioTestCase):
                       cm.output)
 
 
+class TestCanCreatePlugin(unittest.TestCase):
+    """Test that a user can inherit and create their own plugin classes."""
+    def test_can_inherit(self):
+        """Test that a user plugin properly inherits BasePlugin.
+        """
+        class MyCoolPlugin(plugin_bot.BasePlugin):
+            """"""
+
+        self.assertTrue(issubclass(MyCoolPlugin, plugin_bot.BasePlugin))
+        self.assertTrue(hasattr(MyCoolPlugin, 'logger'))
+        self.assertEqual(MyCoolPlugin.logger.name, 'PluginBot.MyCoolPlugin')
+
+
 if __name__ == '__main__':
     unittest.main()
