@@ -36,6 +36,27 @@ class TestCanCreateBot(unittest.IsolatedAsyncioTestCase):
 
         self.assertNotEqual(TestPlugin.ready_calls, 0, 'on_ready not called')
 
+    async def test_logs_dispatching_events(self):
+        """Test that the bot logs whenever a plugin event is dispatched.
+        """
+        class LoggingPlugin:
+
+            async def on_ready(self):
+                """"""
+
+        bot = plugin_bot.PluginBot([LoggingPlugin])
+
+        # Run the bot
+        await bot.login(TEST_TOKEN)
+        try:
+            with self.assertLogs(bot.logger, level='DEBUG') as cm:
+                await asyncio.wait_for(bot.connect(), timeout=5)
+        except asyncio.TimeoutError:
+            await bot.close()
+
+        self.assertIn('DEBUG:PluginBot:dispatching on_ready to LoggingPlugin',
+                      cm.output)
+
 
 if __name__ == '__main__':
     unittest.main()
