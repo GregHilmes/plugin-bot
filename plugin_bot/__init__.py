@@ -24,6 +24,6 @@ class PluginBot(discord.Client):
         for plugin in self.plugins:
             if hasattr(plugin, method):
                 self.logger.debug('dispatching %s to %s', method,
-                                  plugin.__name__)
+                                  plugin.__class__.__name__)
                 coro = functools.partial(getattr(plugin, method), self)
                 self._schedule_event(coro, method, *args, **kwargs)
