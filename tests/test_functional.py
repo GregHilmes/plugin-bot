@@ -21,11 +21,13 @@ class TestCanCreateBot(unittest.IsolatedAsyncioTestCase):
         class TestPlugin:
             ready_calls = 0
 
-            async def on_ready(self):
+            async def on_ready(self, client):
                 TestPlugin.ready_calls += 1
 
-        bot = plugin_bot.PluginBot([TestPlugin])
-        self.assertIn(TestPlugin, bot.plugins)
+        plugin = TestPlugin()
+
+        bot = plugin_bot.PluginBot([plugin])
+        self.assertIn(plugin, bot.plugins)
 
         # Run the bot
         await bot.login(TEST_TOKEN)
@@ -41,10 +43,10 @@ class TestCanCreateBot(unittest.IsolatedAsyncioTestCase):
         """
         class LoggingPlugin:
 
-            async def on_ready(self):
+            async def on_ready(self, client):
                 """"""
 
-        bot = plugin_bot.PluginBot([LoggingPlugin])
+        bot = plugin_bot.PluginBot([LoggingPlugin()])
 
         # Run the bot
         await bot.login(TEST_TOKEN)
