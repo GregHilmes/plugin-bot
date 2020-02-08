@@ -7,6 +7,10 @@ __pycache__/
 
 # Module distributions
 dist/
+**.egg-info
+
+# Tox files
+.tox/
 
 # Editor support files
 # Visual Studio Code

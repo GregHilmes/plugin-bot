@@ -1,0 +1,34 @@
+[tool.poetry]
+name = "plugin-bot"
+version = "0.0.0"
+license = "BSD-3-Clause"
+description = "A plug and play Discord bot client written in Python."
+readme = "README.rst"
+authors = ["Greg Hilmes <99hilmes.g@gmail.com>"]
+repository = "https://github.com/GregHilmes/plugin-bot"
+keywords = ["discord-bot", "python",  "plugin"]
+classifiers = [
+    "Environment :: Plugins",
+    "Intended Audience :: Developers",
+    "Topic :: Communications :: Chat"
+]
+packages = [
+    { include = "plugin_bot" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+discord = ""
+
+[tool.poetry.dev-dependencies]
+pylint = "*"
+yapf = "*"
+sphinx = "*"
+tox = "*"
+
+[tool.poetry.urls]
+"Bugs" = "https://github.com/GregHilmes/plugin-bot/issues"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
